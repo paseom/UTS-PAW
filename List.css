@@ -1,0 +1,100 @@
+/* CSS untuk halaman List Resep */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFAE5; /* Warna latar belakang */
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #E91E63; /* Warna judul */
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Menyebar tombol di kiri dan kanan */
+    margin-bottom: 20px; /* Jarak bawah dari button container */
+}
+
+input[type="submit"] {
+    padding: 20px;
+    background-color: #FDFFAB;
+    border: none;
+    border-radius: 10px;
+    color: #E91E63;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="submit"]:hover {
+    background-color: #FFB6C1; /* Warna tombol saat hover */
+}
+
+/* Kontainer untuk setiap item resep */
+.food-item {
+    border: 1px solid #ccc; /* Border tipis di sekeliling item */
+    padding: 10px;
+    margin: 10px 0;
+    display: flex; /* Menggunakan flexbox untuk layout */
+    justify-content: space-between; /* Memastikan konten di kiri dan kanan */
+    align-items: center; /* Menyelaraskan item dalam baris */
+    background-color: white; /* Warna latar belakang item */
+    border-radius: 5px; /* Sudut membulat */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+}
+
+/* Gaya untuk gambar makanan */
+.food-item img {
+    width: 200px; /* Atur lebar gambar */
+    height: auto; /* Tinggi otomatis untuk mempertahankan rasio aspek */
+    border-radius: 5px; /* Sudut membulat untuk gambar */
+    margin-right: 20px;
+}
+
+/* Kontainer untuk info makanan */
+.food-info {
+    flex: 1; /* Mengizinkan info makanan untuk menggunakan ruang yang tersedia */
+}
+
+/* Gaya untuk nama makanan */
+.food-info h2 {
+    color: #E91E63; /* Warna pink untuk nama makanan */
+}
+
+/* Kontainer untuk tombol hapus */
+.delete-container {
+    margin-right: 50px; /* Jarak antara informasi dan tombol hapus */
+}
+
+/* Gaya untuk tombol tambah resep */
+.add-recipe-container {
+    text-align: center; /* Memusatkan tombol tambah resep */
+    margin-top: 20px; /* Jarak atas */
+}
+
+/* Gaya untuk tombol tambah resep */
+.add-recipe-button {
+    padding: 10px 15px;
+    background-color: #28A745; /* Warna tombol hijau */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold; /* Menjadikan teks di dalam tombol bold */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-recipe-button:hover {
+    background-color: #218838; /* Warna saat hover */
+}
+
+/* Gaya untuk notifikasi data tidak ada */
+.no-data {
+    text-align: center; /* Memusatkan teks */
+    color: #888; /* Warna abu-abu */
+}
