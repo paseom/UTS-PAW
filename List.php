@@ -24,7 +24,7 @@ $result = $pdo->query($sql);
     <link rel="stylesheet" href="List.css">
 </head>
 <body>
-    <h1>List Resep</h1>
+    <h1>LIST RESEP</h1>
 
     <div class="button-container">
         <form action="Home.php">
