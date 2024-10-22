@@ -1,0 +1,84 @@
+<?php
+session_start(); // Memulai sesi
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['user_nama'])) {
+    header("Location: Index.php");
+    exit();
+}
+
+// Cek apakah ada parameter nama makanan yang dikirim
+if (!isset($_GET['nama_makanan'])) {
+    header("Location: List.php"); // Redirect ke list resep jika tidak ada parameter
+    exit();
+}
+
+require 'dbh.php'; // Koneksi ke database
+
+$nama_makanan = $_GET['nama_makanan'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ambil data dari form
+    $nama_makanan_baru = $_POST['nama_makanan'];
+    $asal_negara = $_POST['asal_negara'];
+    $bahan_utama = $_POST['bahan_utama'];
+    $link_tutorial = $_POST['link_tutorial'];
+
+    // Update data resep di database
+    $sql_update = "UPDATE RESEP SET NAMA_MAKANAN = :nama_makanan_baru, ASAL_NEGARA = :asal_negara, BAHAN_UTAMA = :bahan_utama, LINK_TUTORIAL = :link_tutorial WHERE NAMA_MAKANAN = :nama_makanan";
+    $stmt = $pdo->prepare($sql_update);
+    $stmt->bindParam(':nama_makanan_baru', $nama_makanan_baru);
+    $stmt->bindParam(':asal_negara', $asal_negara);
+    $stmt->bindParam(':bahan_utama', $bahan_utama);
+    $stmt->bindParam(':link_tutorial', $link_tutorial);
+    $stmt->bindParam(':nama_makanan', $nama_makanan); // Nama makanan yang ingin diedit
+    $stmt->execute();
+
+    header("Location: List.php"); // Redirect ke halaman list resep setelah update
+    exit();
+}
+
+// Ambil data resep yang akan diedit
+$sql = "SELECT * FROM RESEP WHERE NAMA_MAKANAN = :nama_makanan"; // Penutupan kutip diperbaiki
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':nama_makanan', $nama_makanan);
+$stmt->execute();
+$resep = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Cek apakah resep ditemukan
+if (!$resep) {
+    header("Location: List.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Resep</title>
+    <link rel="stylesheet" href="EditList.css">
+</head>
+<body>
+    <h1>Edit Resep</h1>
+    <form action="EditList.php?nama_makanan=<?= htmlspecialchars($nama_makanan) ?>" method="post">
+        <label for="nama_makanan">Nama Makanan: </label>
+        <input type="text" name="nama_makanan" value="<?= htmlspecialchars($resep['NAMA_MAKANAN']) ?>" required><br>
+
+        <label for="asal_negara">Asal Negara: </label>
+        <input type="text" name="asal_negara" value="<?= htmlspecialchars($resep['ASAL_NEGARA']) ?>" required><br>
+
+        <label for="bahan_utama">Bahan Utama: </label>
+        <input type="text" name="bahan_utama" value="<?= htmlspecialchars($resep['BAHAN_UTAMA']) ?>" required><br>
+
+        <label for="link_tutorial">Link Tutorial: </label>
+        <input type="url" name="link_tutorial" value="<?= htmlspecialchars($resep['LINK_TUTORIAL']) ?>" required><br>
+
+        <input type="submit" value="Simpan Perubahan">
+    </form>
+    <form action="List.php">
+        <input type="submit" value="Kembali ke List Resep">
+    </form>
+</body>
+</html>
