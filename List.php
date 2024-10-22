@@ -55,6 +55,13 @@ $result = $pdo->query($sql);
             echo "<input type='submit' value='Hapus' class='delete-button'>";
             echo "</form>";
             echo "</div>";
+            // Kontainer untuk tombol edit
+            echo "<div class='edit-container'>";
+            echo "<form method='GET' action='EditList.php'>";
+            echo "<input type='hidden' name='nama_makanan' value='" . htmlspecialchars($row["NAMA_MAKANAN"]) . "'>";
+            echo "<input type='submit' value='Edit' class='edit-button'>";
+            echo "</form>";
+            echo "</div>";
             echo "</div>";
         }
     } else {
