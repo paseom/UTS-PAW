@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_nama'])) {
 }
 
 // Koneksi ke database
-require 'dbh.php'; // Pastikan ini sudah terhubung ke dbconnect.php
+require 'dbh.php'; // Pastikan ini sudah terhubung ke dbh.php
 
 // Query untuk mengambil data dari RESEP
 $sql = "SELECT NAMA_MAKANAN, ASAL_NEGARA, BAHAN_UTAMA, LINK_TUTORIAL, GAMBAR_MAKANAN FROM RESEP";
@@ -20,7 +20,7 @@ $result = $pdo->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Resep</title>
+    <title>LIST RESEP</title>
     <link rel="stylesheet" href="List.css">
 </head>
 <body>
@@ -41,13 +41,17 @@ $result = $pdo->query($sql);
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             echo "<div class='food-item'>";
             $image_path = 'gambar/' . htmlspecialchars($row["GAMBAR_MAKANAN"]);
-            echo "<img src='" . $image_path . "' alt='" . htmlspecialchars($row["NAMA_MAKANAN"]) . "'>";
+            // Tampilkan gambar
+            if (!empty($row["GAMBAR_MAKANAN"])) {
+                echo "<img src='" . $image_path . "' alt='" . htmlspecialchars($row["NAMA_MAKANAN"]) . "' width='200'>";
+            }
             echo "<div class='food-info'>";
             echo "<h2>" . htmlspecialchars($row["NAMA_MAKANAN"]) . "</h2>";
             echo "<p>Asal Negara: " . htmlspecialchars($row["ASAL_NEGARA"]) . "</p>";
             echo "<p>Bahan Utama: " . htmlspecialchars($row["BAHAN_UTAMA"]) . "</p>";
-            echo "<p>Link Tutorial: <a href='" . htmlspecialchars($row["LINK_TUTORIAL"]) . "'>Video Tutorial</a></p>";
+            echo "<p>Link: <a href='" . htmlspecialchars($row["LINK_TUTORIAL"]) . "'>Video Tutorial</a></p>";
             echo "</div>";
+
             // Kontainer untuk tombol hapus
             echo "<div class='delete-container'>";
             echo "<form method='POST' action='DeleteList.php' onsubmit='return confirm(\"Apakah anda yakin ingin menghapus resep ini?\");'>";
@@ -55,6 +59,7 @@ $result = $pdo->query($sql);
             echo "<input type='submit' value='Hapus' class='delete-button'>";
             echo "</form>";
             echo "</div>";
+
             // Kontainer untuk tombol edit
             echo "<div class='edit-container'>";
             echo "<form method='GET' action='EditList.php'>";
@@ -62,6 +67,7 @@ $result = $pdo->query($sql);
             echo "<input type='submit' value='Edit' class='edit-button'>";
             echo "</form>";
             echo "</div>";
+
             echo "</div>";
         }
     } else {
