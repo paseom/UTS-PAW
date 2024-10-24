@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute();
 
                 // Redirect ke halaman Log In setelah berhasil mendaftar
-                header("Location: Index.php");
+                header("Location: LogIn.php");
                 exit();
             }
         }
@@ -99,6 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="submit" value="Daftar">
     </form>
 
-    <p>Sudah memiliki akun? <a href="Index.php">Log In</a></p>
+    <p>Sudah memiliki akun? <a href="LogIn.php">Log In</a></p>
 </body>
 </html>
