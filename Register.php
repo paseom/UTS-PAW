@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $error_message = $error_akun;
             } 
             // Jika hanya email yang sama
-            elseif ($user_email['email'] == $email) {
+            elseif ($user_email['EMAIL'] == $email) {
                 $error_message = $error_email;
             }
         } else {
